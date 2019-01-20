@@ -18,6 +18,7 @@
   "homepage": "https://github.com/levymitchell0/newspaper-app#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "helmet": "^3.15.0"
+    "helmet": "^3.15.0",
+    "vhost": "^3.0.2"
   }
 }
