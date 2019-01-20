@@ -16,15 +16,28 @@ demo1.get('/', (req, res) => {
 });
 
 demo1.get('/:year/:month/:day', (req, res) => {
+  for (var param in req.params) {
+    if (req.params.hasOwnProperty(param)) {
+      if (!req.params[param].match(/^[0-9]+$/)) {
+        res.send(`Invalid URL`);
+        return;
+      }
+    }
+  }
+
   let year = req.params.year;
   let month = req.params.month;
   let day = req.params.day;
 
-  let file = fs.createReadStream(`demo1/${year}-${month}-${day}.pdf`);
-  let stat = fs.statSync(`demo1/${year}-${month}-${day}.pdf`);
-  res.setHeader('Content-Length', stat.size);
-  res.setHeader('Content-Type', 'application/pdf');
-  file.pipe(res);
+  if (!fs.existsSync(`demo1/${year}-${month}-${day}.pdf`)) {
+    res.send(`The edition requested cannot be found.`);
+  } else {
+    let file = fs.createReadStream(`demo1/${year}-${month}-${day}.pdf`);
+    let stat = fs.statSync(`demo1/${year}-${month}-${day}.pdf`);
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    file.pipe(res);
+  }
 });
 
 demo2.get('/', (req, res) => {
