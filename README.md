@@ -1,2 +1,2 @@
 # newspaper-app
-A simple Node.js to host a newspaper
+A simple Node.js app to host a newspaper
