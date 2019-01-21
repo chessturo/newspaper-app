@@ -13,7 +13,13 @@ let demo2 = express.Router();
 
 //Demo1
 demo1.get('/', (req, res) => {
-  res.send(`Yay, it's the homepage!`);
+  let arr = [];
+  fs.readdirSync('./demo1').forEach((val) => {arr.push(val.slice(0, val.indexOf('.')));});
+  let articleList = ``;
+  arr.forEach((val) => {
+    articleList += `<a href='${val.replace(/\-/g, '/')}'>${val}</a><br />`;
+  });
+  res.send(`Yay, it's the homepage! Here are all of our editions:<br />${articleList}`);
 });
 
 demo1.get('/:year([0-9]+)/:month([0-9]+)/:day([0-9]+)', (req, res) => {
@@ -41,7 +47,7 @@ demo1.get('*', (req, res) => {
 demo2.get('/', (req, res) => {
   let header = fs.readFileSync('demo2/header.html');
   let footer = fs.readFileSync('demo2/footer.html');
-  
+
 });
 
 app.use(vhost(`demo1.${hostname}`, demo1));
