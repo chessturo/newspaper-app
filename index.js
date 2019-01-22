@@ -44,10 +44,15 @@ demo1.get('*', (req, res) => {
 });
 
 //Demo2
-demo2.get('/', (req, res) => {
-  let header = fs.readFileSync('demo2/header.html');
-  let footer = fs.readFileSync('demo2/footer.html');
+app.set ('views', `${__dirname}/demo2/views`);
+app.set('view engine', 'ejs');
 
+demo2.get('/', (req, res) => {
+  res.render('index');
+});
+
+demo2.get('/style.css', (req, res) => {
+  res.sendFile(`${__dirname}/demo2/style.css`);
 });
 
 app.use(vhost(`demo1.${hostname}`, demo1));
