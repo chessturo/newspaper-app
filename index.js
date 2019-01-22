@@ -74,6 +74,7 @@ async function getArticlePreviews(optionalTag) {
     let outputArticle = {
       title: val.title,
       byline: val.byline,
+      time: val.time,
       url: val.url,
       thumbnail: val.thumbnail,
     };
