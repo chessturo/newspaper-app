@@ -1,0 +1,13 @@
+<%# Locals expected:
+  articlePreview,
+%>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 article-preview">
+    <a href="<%= articlePreview.url %>"><img src="<%= articlePreview.thumbnail %>" class="article-preview-img" /></a>
+    <a href="<%= articlePreview.url %>">
+      <h2 class="article-preview-title"><%= articlePreview.title %></h2>
+      <h4 class="article-preview-byline"><%= articlePreview.byline %></h4>
+    </a>
+  </div>
+</div>

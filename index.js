@@ -47,31 +47,62 @@ demo1.get('*', (req, res) => {
 //Demo2
 app.set('views', `${__dirname}/demo2/views`);
 app.set('view engine', 'ejs');
+app.use('/assets', express.static('demo2/assets'));
 
 //Database stuff
-const dbName = `nespaper-test`
+const dbName = `newspaper-test`
 const dbURL = `mongodb://localhost/${dbName}`;
 const client = new MongoClient(dbURL);
+let db;
 
-client.connect((err, client) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected correctly to server");
-    const db = client.db(dbName);
-  }
+client.connect().then(() => {
+  db = client.db(dbName);
 });
+console.log(`Connected!`);
+
+async function getArticlePreviews(optionalTag) {
+  let rawArticleArray;
+  if (optionalTag && optionalTag != 'home') {
+    rawArticleArray = await db.collection('articles').find({
+      tags: {"$elemMatch" : { "$eq" : optionalTag } },
+    }).sort({time: -1}).limit(5).toArray();
+  } else {
+    rawArticleArray = await db.collection('articles').find().sort({time: -1}).limit(5).toArray();
+  }
+  let outputArray = [];
+  rawArticleArray.forEach((val) => {
+    let outputArticle = {
+      title: val.title,
+      byline: val.byline,
+      url: val.url,
+      thumbnail: val.thumbnail,
+    };
+    outputArray.push(outputArticle);
+  });
+  return outputArray;
+  /*let x = await db.collection('articles').find(
+    {title: "The Government Did a Thing."}
+  ).toArray();*/
+}
 
 demo2.get('/', (req, res) => {
-  res.render('index', {
-    active: 'home',
+  getArticlePreviews().then((previewArray) => {
+    console.log(previewArray);
+    res.render('index', {
+      active: 'home',
+      articlePreviews: previewArray
+    });
   });
 });
 
 demo2.get('/:tag(home|sports|current)', (req, res) => {
-  res.render('index', {
-    active: req.params.tag,
-  })
+  getArticlePreviews(req.params.tag).then((previewArray) => {
+    console.log(previewArray);
+    res.render('index', {
+      active: req.params.tag,
+      articlePreviews: previewArray
+    });
+  });
 })
 
 demo2.get('/style.css', (req, res) => {
