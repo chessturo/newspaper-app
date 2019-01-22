@@ -44,7 +44,7 @@ demo1.get('*', (req, res) => {
 });
 
 //Demo2
-app.set ('views', `${__dirname}/demo2/views`);
+app.set('views', `${__dirname}/demo2/views`);
 app.set('view engine', 'ejs');
 
 demo2.get('/', (req, res) => {
