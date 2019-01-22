@@ -1,12 +1,15 @@
+<%# Locals expected:
+  active,
+%>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Highlander Today</a>
+      <a class="navbar-brand" href="/">Highlander Today</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Sports</a></li>
-      <li><a href="#">Current Events</a></li>
+      <li class=<%- active=='home' ? "active" : "\"\""%>><a href="/">Home</a></li>
+      <li class=<%- active=='sports' ? "active" : "\"\""%>><a href="sports">Sports</a></li>
+      <li class=<%- active=='current' ? "active" : "\"\""%>><a href="current">Current Events</a></li>
     </ul>
   </div>
 </nav>

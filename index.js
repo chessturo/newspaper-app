@@ -48,8 +48,16 @@ app.set('views', `${__dirname}/demo2/views`);
 app.set('view engine', 'ejs');
 
 demo2.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {
+    active: 'home',
+  });
 });
+
+demo2.get('/:tag(home|sports|current)', (req, res) => {
+  res.render('index', {
+    active: req.params.tag,
+  })
+})
 
 demo2.get('/style.css', (req, res) => {
   res.sendFile(`${__dirname}/demo2/style.css`);
