@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const vhost = require('vhost'); //Hopefully not needed in prod
 const fs = require('fs');
+const MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 const hostname = "myapp.com";
@@ -46,6 +47,20 @@ demo1.get('*', (req, res) => {
 //Demo2
 app.set('views', `${__dirname}/demo2/views`);
 app.set('view engine', 'ejs');
+
+//Database stuff
+const dbName = `nespaper-test`
+const dbURL = `mongodb://localhost/${dbName}`;
+const client = new MongoClient(dbURL);
+
+client.connect((err, client) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+  }
+});
 
 demo2.get('/', (req, res) => {
   res.render('index', {
