@@ -1,6 +1,6 @@
 <%# Locals expected:
   active,
-  articlePreview[],
+  articlePreviews[],
     title,
     byline,
     url,
@@ -17,9 +17,12 @@
   <body>
     <%- include('nav', {active: active}); %>
     <div class="container-fluid">
-      <%- include('articlePreview', {articlePreview: {title: "test1", byline: "1dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test1.jpg"}}) %>
-      <%- include('articlePreview', {articlePreview: {title: "test2", byline: "2dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test2.jpg"}}) %>
-      <%- include('articlePreview', {articlePreview: {title: "test3", byline: "3dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test3.jpg"}}) %>
+      <% for (let i = 0; i < articlePreviews.length; i++) { %>
+        <%- include('articlePreview', {articlePreview: articlePreviews[i]}); %>
+      <% } %>
+      <%# include('articlePreview', {articlePreview: {title: "test1", byline: "1dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test1.jpg"}}) %>
+      <%# include('articlePreview', {articlePreview: {title: "test2", byline: "2dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test2.jpg"}}) %>
+      <%# include('articlePreview', {articlePreview: {title: "test3", byline: "3dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test3.jpg"}}) %>
     </div>
     <%- include('footer'); %>
   </body>

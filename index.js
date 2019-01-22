@@ -87,20 +87,18 @@ async function getArticlePreviews(optionalTag) {
 
 demo2.get('/', (req, res) => {
   getArticlePreviews().then((previewArray) => {
-    console.log(previewArray);
     res.render('index', {
       active: 'home',
-      articlePreviews: previewArray
+      articlePreviews: previewArray,
     });
   });
 });
 
 demo2.get('/:tag(home|sports|current)', (req, res) => {
   getArticlePreviews(req.params.tag).then((previewArray) => {
-    console.log(previewArray);
     res.render('index', {
       active: req.params.tag,
-      articlePreviews: previewArray
+      articlePreviews: previewArray,
     });
   });
 })
