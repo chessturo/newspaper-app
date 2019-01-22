@@ -63,6 +63,11 @@ demo2.get('/style.css', (req, res) => {
   res.sendFile(`${__dirname}/demo2/style.css`);
 });
 
+demo2.get('*', (req, res) => {
+  res.status(404);
+  res.send(`This page does not exist`);
+})
+
 app.use(vhost(`demo1.${hostname}`, demo1));
 app.use(vhost(`demo2.${hostname}`, demo2));
 
