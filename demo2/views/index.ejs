@@ -1,0 +1,29 @@
+<%# Locals expected:
+  active,
+  articlePreviews[],
+    title,
+    byline,
+    url,
+    thumbnail,
+%>
+<html>
+  <head>
+    <title>Highlander Today!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <%- include('nav', {active: active}); %>
+    <div class="container-fluid">
+      <% for (let i = 0; i < articlePreviews.length; i++) { %>
+        <%- include('articlePreview', {articlePreview: articlePreviews[i]}); %>
+      <% } %>
+      <%# include('articlePreview', {articlePreview: {title: "test1", byline: "1dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test1.jpg"}}) %>
+      <%# include('articlePreview', {articlePreview: {title: "test2", byline: "2dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test2.jpg"}}) %>
+      <%# include('articlePreview', {articlePreview: {title: "test3", byline: "3dklsa;fjkdla;fjkdals;fjdklas;fjdksal;fjdkaslfjklas;", url: "#", thumbnail: "/assets/test3.jpg"}}) %>
+    </div>
+    <%- include('footer'); %>
+  </body>
+</html>
